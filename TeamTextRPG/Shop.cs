@@ -10,6 +10,7 @@ namespace TeamTextRPG
     {
         // 장비 타입
         // 3부위 머리 상의 하의
+        //테스트 메시지
         public enum ItemType
         {
             Weapon,
