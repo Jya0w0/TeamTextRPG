@@ -10,6 +10,7 @@ namespace TeamTextRPG
         private static Character player;
         private static Item[] items;
 
+        // 테스트
         // 메인 실행
         static void Main()
         {
