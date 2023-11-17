@@ -9,6 +9,7 @@ namespace TeamTextRPG
     public class Item
     {
         // 장비 타입
+        //이름
         public enum ItemType
         {
             Weapon,
