@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TeamTextRPG
 {
+    //ㅎㅇㅎㅇ
     public class Character
     {
         public string Name { get; }
