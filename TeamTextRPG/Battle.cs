@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TeamTextRPG
 {
-    //ㅎㅇㅎㅇ
+
     public class Character
     {
         public string Name { get; }
@@ -16,8 +16,9 @@ namespace TeamTextRPG
         public int Def { get; }
         public int Hp { get; }
         public int Gold { get; }
+        public bool IsAlive { get; } = true;
 
-        public Character(string name, string job, int level, int atk, int def, int hp, int gold)
+        public Character(string name, string job, int level, int atk, int def, int hp, int gold, bool isAlive)
         {
             Name = name;
             Job = job;
@@ -26,6 +27,7 @@ namespace TeamTextRPG
             Def = def;
             Hp = hp;
             Gold = gold;
+            IsAlive = isAlive;
         }
     }
     internal class Battle

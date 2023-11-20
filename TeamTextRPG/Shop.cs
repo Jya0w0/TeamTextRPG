@@ -8,8 +8,6 @@ namespace TeamTextRPG
 {
     public class Item
     {
-        // 장비 타입
-        //어어엉러어ㅓ어어어러ㅑㅁ넫ㅎ
         public enum ItemType
         {
             Weapon,

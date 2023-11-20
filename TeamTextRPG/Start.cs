@@ -26,7 +26,7 @@ namespace TeamTextRPG
             player = null;
 
             // 캐릭터 정보 세팅
-            player = new Character("Chad", "전사", 1, 10, 5, 100, 1500);
+            player = new Character("Chad", "전사", 1, 10, 5, 100, 1500, true);
 
             // 0 = 무기 1 = 대가리 2 = 갑옷 3 = 신발
             // 아이템 정보 세팅
@@ -62,7 +62,7 @@ namespace TeamTextRPG
         }
 
         // 스타트
-        static void DisplayGameIntro()
+        public static void DisplayGameIntro() //수정
         {
             Console.Clear();
             Console.Title = "= Sparta Village =";
@@ -72,12 +72,12 @@ namespace TeamTextRPG
             OutputTxt(startTxt);
             LineTextColor("==================================================");
             Console.WriteLine();
-            ChooseTextColor("1. 상태보기\n2. 인벤토리\n3. 상    점\n0. 메인화면");
+            ChooseTextColor("1. 상태보기\n2. 인벤토리\n3. 상    점\n4. 던    전\n0. 메인화면");
             Console.WriteLine();
             Console.WriteLine("원하시는 행동을 입력해주세요.");
             Console.Write(">> ");
 
-            int input = CheckValidInput(0, 3);
+            int input = CheckValidInput(0, 4);
             switch (input)
             {
                 case 0:
@@ -94,7 +94,8 @@ namespace TeamTextRPG
                     DisplayShop();
                     break;
                 case 4:
-                    Dis
+                    Battle_AnSky.DisplayDungeon(player);
+
                     break;
             }
         }
