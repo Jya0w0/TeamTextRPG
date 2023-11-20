@@ -93,6 +93,9 @@ namespace TeamTextRPG
                 case 3:
                     DisplayShop();
                     break;
+                case 4:
+                    Dis
+                    break;
             }
         }
 
