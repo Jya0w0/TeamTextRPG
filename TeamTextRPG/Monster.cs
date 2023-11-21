@@ -1,7 +1,7 @@
 ﻿using System;
 namespace TeamTextRPG
 {
-    public class Monster_AnSky
+    public class Monster
     {
 
         public string MonsterName { get; set; }
@@ -12,19 +12,19 @@ namespace TeamTextRPG
 
 
 
-        public static List<Monster_AnSky> RandomMonsters()
+        public static List<Monster> RandomMonsters()
         {
 
 
-            List<Monster_AnSky> monsters = new List<Monster_AnSky>
+            List<Monster> monsters = new List<Monster>
             {
-                new Monster_AnSky("변이 쥐", 100, 100, 1, true),
-                new Monster_AnSky("다친 경비 견", 100, 100, 1, true),
-                new Monster_AnSky("실험체 태아", 1, 20, 1, true),
-                new Monster_AnSky("슬라임", 1, 10, 1, true)
+                new Monster("변이 쥐", 100, 100, 1, true),
+                new Monster("다친 경비 견", 100, 100, 1, true),
+                new Monster("실험체 태아", 1, 20, 1, true),
+                new Monster("슬라임", 1, 10, 1, true)
             };
 
-            List<Monster_AnSky> selectedMonsters = new List<Monster_AnSky>();//load list
+            List<Monster> selectedMonsters = new List<Monster>();//load list
             Random random = new Random();//random
 
             int maxMonsters = random.Next(1, monsters.Count); //반복문에 사용될 몬스터 생성 최댓값 랜덤 생성
@@ -37,7 +37,7 @@ namespace TeamTextRPG
             return selectedMonsters;
         }
 
-        public Monster_AnSky(string monsterName, int monsterHp, int monsterAtk, int monsterLv, bool isAlive)
+        public Monster(string monsterName, int monsterHp, int monsterAtk, int monsterLv, bool isAlive)
         {
             MonsterName = monsterName;
             MonsterHp = monsterHp;

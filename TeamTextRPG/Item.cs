@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace TeamTextRPG
 {
-    public class Item
-    {
+	public class Item
+	{
+        public static Item[] items;
+
         public enum ItemType
         {
             Weapon,
@@ -38,7 +35,47 @@ namespace TeamTextRPG
             IsEquipped = isEquipped;
         }
 
-        // 장비 착용 표시
+        public Item()
+		{
+		}
+        static void GameDataSattingItem()
+        {
+            items = new Item[10];
+            AddItem(new Item("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", Item.ItemType.Body, 0, 5, 0));
+            AddItem(new Item("낡은 검", "쉽게 볼 수 있는 낡은 검입니다.", Item.ItemType.Weapon, 2, 0, 0));
+            AddItem(new Item("고양이 수염", "고양이 수염은 행운을 가져다 줍니다. 야옹!", Item.ItemType.Acc, 7, 7, 7));
+        }
+
+        public static int itemStatSumAtk() //item 
+        {
+            int sum = 0;
+            for (int i = 0; i < Item.ItemCount; i++)
+            {
+                if (items[i].IsEquipped) sum += items[i].AtkOption;
+            }
+            return sum;
+        }
+        public static int itemStatSumDef()
+        {
+            int sum = 0;
+            for (int i = 0; i < Item.ItemCount; i++)
+            {
+                if (items[i].IsEquipped) sum += items[i].DefOption;
+            }
+            return sum;
+        }
+        public static int itemStatSumHp()
+        {
+            int sum = 0;
+            for (int i = 0; i < Item.ItemCount; i++)
+            {
+                if (items[i].IsEquipped) sum += items[i].HpOption;
+            }
+            return sum;
+        }
+
+
+
         public void ItemStat(bool equippedItem = false, int index = 0) // 기본값이 false
         {
             Console.Write("- ");
@@ -55,10 +92,10 @@ namespace TeamTextRPG
                 Console.Write("E");
                 Console.ResetColor();
                 Console.Write("]");
-                Console.WriteLine(PadRightForMixedText(Name, 9)); // 방어력, 공격력 옵션들 간격맞춤
+                Console.WriteLine(Interface.PadRightForMixedText(Name, 9)); // 방어력, 공격력 옵션들 간격맞춤
             }
             else
-                Console.WriteLine(PadRightForMixedText(Name, 12));
+                Console.WriteLine(Interface.PadRightForMixedText(Name, 12));
             Console.Write(" | ");
 
             if (AtkOption != 0) Console.Write($"공격력 {(AtkOption >= 0 ? "+" : "")}{AtkOption} "); // 삼항연산자
@@ -66,33 +103,20 @@ namespace TeamTextRPG
             if (HpOption != 0) Console.Write($"체 력 {(HpOption >= 0 ? "+" : "")}{HpOption} "); // [조건 ? 참 : 거짓]
 
             Console.Write(" | ");
-
             Console.WriteLine(Description);
         }
 
-        // 정렬
-        public static int GetPrintableLength(string str)
+        public static void ToggleEquipStatus(int index) //item
         {
-            int length = 0;
-            foreach (char c in str)
-            {
-                if (char.GetUnicodeCategory(c) == System.Globalization.UnicodeCategory.OtherLetter)
-                {
-                    length += 2; // 한글과 같은 넓은 문자에 대해 길이를 2로 취급
-                }
-                else
-                {
-                    length += 1; // 나머지 문자에 대해 길이를 1로 취급
-                }
-            }
-
-            return length;
+            items[index].IsEquipped = !items[index].IsEquipped; // ! : 불형의 변수를 반대로 만들어주는 것
         }
-        public static string PadRightForMixedText(string str, int totalLength)
+
+        static void AddItem(Item item)
         {
-            int currentLength = GetPrintableLength(str); // 텍스트의 길이를 구한다
-            int padding = totalLength - currentLength; // 원하는 크기과 실제 텍스트의 길이를 계산한다
-            return str.PadRight(str.Length + padding); // 필요한 길이만큼의 공간을 더해준다
+            if (Item.ItemCount == 10) return; // 아이템이 꽉차면 아무일도 일어나지 않는다
+            items[Item.ItemCount] = item; // 0개 -> items[0], 1개 -> items[1] ...
+            Item.ItemCount++;
         }
     }
 }
+
