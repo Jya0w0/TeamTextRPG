@@ -6,6 +6,7 @@ namespace TeamTextRPG
 {
     public class Display
     {
+        static public string inputaction = "원하시는 행동을 입력해주세요.\n\n";
         //게임 캐릭터 설정
         #region
         public static void DisplayCharacterGenaration()
@@ -14,47 +15,61 @@ namespace TeamTextRPG
             string characterName = "";
             string characterClass = "";
 
+            Console.CursorVisible = false; // 커서 없애기
+
             Console.Clear();
-            Console.Title = "= Sparta Village =";
+            Console.Title = "= TT virus =";
 
 
-            Interface.LineTextColor("==================================================");
-            string startTxt = "스파르타 마을에 오신 여러분 환영합니다.\n이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다.\n";
+            Interface.LineTextColor("====================================================================================================");
+            Console.WriteLine();
+            string startTxt = "어느 날 갑작스러운 전염병이 퍼지며 전세계가 혼란스러워졌다.\n" +
+                "통칭 TT바이러스." +
+                "전염병에 감염된 생명체는 사람들을 공격해 동족으로 만들기 시작했으며, 많은 사람들이 죽고 다쳤다.\n" +
+                "80억의 인류가 10억쯤으로 줄어 들 때 쯤 소수의 생존자들은 마침내 발견했다.\n" +
+                "모든 바이러스를 퍼뜨린 원흉인 수상한 지하 연구소를... \n" +
+                "진실을 파해치기 위한 모험이 시작된다.\n";
             Interface.OutputTxt(startTxt);
+            Console.WriteLine();
+            Interface.LineTextColor("====================================================================================================");
             Thread.Sleep(2000);
+            Console.CursorVisible = true; // 끝나면 다시 생기게
 
 
             Console.Clear();
-            string writeName = "이름이 무엇인가요? \n이름: ";
+            Interface.LineTextColor("====================================================================================================");
+            Console.WriteLine();
+            string writeName = "당신의 이름은?\n\n";
             Interface.OutputTxt(writeName);
+            Interface.LineTextColor("====================================================================================================");
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(">> ");
             characterName = Console.ReadLine();
-            //이름 저장
 
             Console.Clear();
-            string classType = "1. 전사  2. 마법사  3. 궁수";
-            Interface.OutputTxt(classType);
+            Interface.LineTextColor("====================================================================================================");
             Console.WriteLine();
+            Console.WriteLine("1. 소방관\n2. 개발자\n3. 의사\n");
+            Interface.LineTextColor("====================================================================================================");
             Console.WriteLine();
-            Console.WriteLine();
-
-            string inputClass = "원하는 직업을 선택하여주세요. \n직업: ";
+            string inputClass = "원하는 직업을 선택하여주세요.\n\n";
             Interface.OutputTxt(inputClass);
             int input = Interface.CheckValidInput(1, 3);
             //직업 선택
 
-
             switch (input)
             {
                 case 1:
-                    characterClass = "전사";
+                    characterClass = "소방관";
                     break;
 
                 case 2:
-                    characterClass = "마법사";
+                    characterClass = "개발자";
                     break;
 
                 case 3:
-                    characterClass = "궁수";
+                    characterClass = "의사";
                     break;
 
             }
@@ -70,12 +85,13 @@ namespace TeamTextRPG
         public static void DisplayGameIntro()
         {
             Console.Clear();
-            Interface.LineTextColor("==================================================");
+            Interface.LineTextColor("====================================================================================================");
             Console.WriteLine();
-            Interface.ChooseTextColor("1. 상태보기\n2. 인벤토리\n3. 상    점\n4. 던    전\n0. 메인화면");
+            Interface.LineTextColor("방치된지 오래되어 보이는 건물이다.\n건물을 둘러싸고 있는 부서진 외벽과 깨진 창문이 음산함을 더한다.\n");
+            Interface.LineTextColor("====================================================================================================");
             Console.WriteLine();
-            Console.WriteLine("원하시는 행동을 입력해주세요.");
-            Console.WriteLine();
+            Interface.ChooseTextColor("1. 상태보기\n2. 인벤토리\n3. 상    점\n4. 입장하기\n0. 메인화면\n");
+            Interface.OutputTxt(inputaction);
 
             int input2 = Interface.CheckValidInput(0, 4);
             switch (input2)
@@ -108,7 +124,8 @@ namespace TeamTextRPG
             Console.Title = "= Information =";
 
             Interface.ChooseTextColor("= 상태보기 =");
-            Interface.LineTextColor("캐릭터의 정보가 표시됩니다.");
+            Interface.LineTextColor("캐릭터의 정보가 표시됩니다.\n");
+            Interface.LineTextColor("====================================================================================================");
             Console.WriteLine();
             Interface.StatTextColor("Lv. ", Character.player.Level.ToString("00")); // 00, 07 등 한자릿수도 두자릿수로 표현하기 위해 string 타입으로 변환
             Console.WriteLine();
@@ -119,13 +136,14 @@ namespace TeamTextRPG
             int itemStatHp = Item.itemStatSumHp();
             Interface.StatTextColor("공격력 : ", (Character.player.Atk + itemStatAtk).ToString(), itemStatAtk > 0 ? string.Format(" (+{0})", itemStatAtk) : "");
             Interface.StatTextColor("방어력 : ", (Character.player.Def + itemStatDef).ToString(), itemStatDef > 0 ? string.Format(" (+{0})", itemStatDef) : "");
-            Interface.StatTextColor("체 력 : ", Character.player.Hp.ToString(), itemStatHp > 0 ? string.Format(" (+{0})", itemStatHp) : "");
-            Interface.StatTextColor("Gold : ", Character.player.Gold.ToString());
+            Interface.StatTextColor("체  력 : ", Character.player.Hp.ToString(), itemStatHp > 0 ? string.Format(" (+{0})", itemStatHp) : "");
+            Interface.StatTextColor(" Gold  : ", Character.player.Gold.ToString());
+            Console.WriteLine();
+            Interface.LineTextColor("====================================================================================================");
             Console.WriteLine();
             Interface.ChooseTextColor("0. 나가기");
             Console.WriteLine();
-            Console.WriteLine("원하시는 행동을 입력해주세요.");
-            Console.WriteLine();
+            Interface.OutputTxt(inputaction);
 
             int input = Interface.CheckValidInput(0, 0);
             switch (input)
@@ -147,6 +165,8 @@ namespace TeamTextRPG
             Interface.ChooseTextColor("= 인벤토리 =");
             Interface.LineTextColor("보유 중인 아이템을 관리할 수 있습니다.");
             Console.WriteLine();
+            Interface.LineTextColor("====================================================================================================");
+            Console.WriteLine();
             Interface.ChooseTextColor("[아이템 목록]");
 
             for (int i = 0; i < Item.ItemCount; i++)
@@ -154,11 +174,12 @@ namespace TeamTextRPG
                 Item.items[i].ItemStat();
             }
             Console.WriteLine("");
+            Interface.LineTextColor("====================================================================================================");
+            Console.WriteLine();
             Interface.ChooseTextColor("1. 장착관리\n0. 나가기");
             Console.WriteLine();
             Console.ResetColor();
-            Console.WriteLine("원하시는 행동을 입력해주세요.");
-            Console.WriteLine();
+            Interface.OutputTxt(inputaction);
 
             int input = Interface.CheckValidInput(0, 1);
             switch (input)
@@ -183,16 +204,19 @@ namespace TeamTextRPG
             Interface.ChooseTextColor("= 장착관리 =");
             Interface.LineTextColor("보유 중인 아이템을 관리할 수 있습니다.");
             Console.WriteLine();
+            Interface.LineTextColor("====================================================================================================");
+            Console.WriteLine();
             Interface.ChooseTextColor("[아이템 목록]");
             for (int i = 0; i < Item.ItemCount; i++)
             {
                 Item.items[i].ItemStat(true, i + 1);
             }
             Console.WriteLine();
+            Interface.LineTextColor("====================================================================================================");
+            Console.WriteLine();
             Interface.ChooseTextColor("0. 나가기");
             Console.WriteLine();
-            Console.WriteLine("원하시는 행동을 입력해주세요.");
-            Console.Write(">> ");
+            Interface.OutputTxt(inputaction);
 
             int input = Interface.CheckValidInput(0, Item.ItemCount);
             switch (input)
@@ -217,15 +241,17 @@ namespace TeamTextRPG
 
             Interface.ChooseTextColor(" = 상   점 = ");
             Console.WriteLine();
+            Interface.LineTextColor("====================================================================================================");
+            Console.WriteLine();
             // 한글자씩 출력
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            string shopTxt = "상점이 있던 곳이다.\n그러나 상점은 온데간데 없고 부서진 건물의 흔적만 있을 뿐이다...\n나중에 다시 오자.\n";
+            string shopTxt = "상점이 있던 곳이다.\n그러나 상점은 온데간데 없고 부서진 흔적만 있을 뿐이다...\n나중에 다시 오자.\n";
             Interface.OutputTxt(shopTxt);
+            Console.WriteLine();
+            Interface.LineTextColor("====================================================================================================");
             Console.WriteLine();
             Interface.ChooseTextColor("0. 나가기");
             Console.WriteLine();
-            Console.WriteLine("원하시는 행동을 입력해주세요.");
-            Console.WriteLine();
+            Interface.OutputTxt(inputaction);
 
             int input = Interface.CheckValidInput(0, 0);
             switch (input)
@@ -241,15 +267,17 @@ namespace TeamTextRPG
         #region
         public static void DisplayGameLogo()
         {
+            Console.CursorVisible = false;
             Console.Clear();
             Console.CursorVisible = false;
             // 아스키 코드로 이루어진 타이틀 화면을 위한 인코딩 설정
             Console.OutputEncoding = Encoding.UTF8;
-            Console.Title = "= Sparta Dungeon =";
+            Console.Title = "= TT virus =";
 
             Design.LogoColor();
             Console.ReadKey();
             Console.Beep(); // 삡 소리 나게 하는 것
+            Console.CursorVisible = true;
         }
         #endregion
 
@@ -257,6 +285,7 @@ namespace TeamTextRPG
         #region
         public static void DisplayDungeon(Character player)
         {
+            Console.Title = "= Stage =";
             int playerHpInDungeon = player.Hp + Item.itemStatSumHp();
 
             List<Monster> selectedMonster = Monster.RandomMonsters();
@@ -268,6 +297,8 @@ namespace TeamTextRPG
                 Console.WriteLine("Battle!!");
                 Console.ResetColor();
 
+                Console.WriteLine();
+                Interface.LineTextColor("====================================================================================================");
                 Console.WriteLine();
 
                 foreach (var monster in selectedMonster)
@@ -285,6 +316,8 @@ namespace TeamTextRPG
                 }
 
                 Console.WriteLine();
+                Interface.LineTextColor("====================================================================================================");
+                Console.WriteLine();
                 Console.WriteLine("[내정보]");
                 Console.Write("Lv");
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -299,8 +332,10 @@ namespace TeamTextRPG
 
                 Console.WriteLine();
                 Console.WriteLine();
+                Interface.LineTextColor("====================================================================================================");
+                Console.WriteLine();
 
-                Console.WriteLine("원하는 몬스터를 선택하세요:");
+                Interface.LineTextColor("원하는 몬스터를 선택하세요:");
                 Console.WriteLine();
                 for (int i = 0; i < selectedMonster.Count; i++)
                 {
@@ -309,11 +344,11 @@ namespace TeamTextRPG
 
                 int monsterChoice = Interface.CheckValidInput(1, selectedMonster.Count);
 
-                Console.WriteLine("1. 공격");
+                Interface.ChooseTextColor("1. 공격");
                 Console.WriteLine();
+                Interface.LineTextColor("====================================================================================================");
                 Console.WriteLine();
-                Console.WriteLine("원하는 행동을 선택하세요:");
-                Console.WriteLine();
+                Interface.OutputTxt(inputaction);
 
                 switch (Interface.CheckValidInput(1, 1))
                 {
@@ -321,7 +356,9 @@ namespace TeamTextRPG
                         int aliveMonsters = selectedMonster.Count(monster => monster.IsAlive == true);
                         if (aliveMonsters > 0)
                         {
-                            Console.WriteLine("원하는 몬스터를 선택하세요:");
+                            Interface.LineTextColor("====================================================================================================");
+                            Console.WriteLine();
+                            Interface.LineTextColor("원하는 몬스터를 선택하세요:");
                             for (int i = 0; i < selectedMonster.Count; i++)
                             {
                                 if (selectedMonster[i].IsAlive)
@@ -330,12 +367,10 @@ namespace TeamTextRPG
                                 }
                             }
 
-
                             PlayerAttack(player, selectedMonster[monsterChoice - 1], ref playerHpInDungeon, selectedMonster);
                             Console.WriteLine();
-
-
-
+                            Interface.LineTextColor("====================================================================================================");
+                            Console.WriteLine();
                         }
                         break;
                     default:
@@ -377,7 +412,8 @@ namespace TeamTextRPG
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Battle!! - Resurt");
-                Console.ResetColor();
+                Console.WriteLine();
+                Interface.LineTextColor("====================================================================================================");
                 Console.WriteLine();
 
                 Console.WriteLine("VICTORY");
@@ -402,11 +438,14 @@ namespace TeamTextRPG
                 Console.ResetColor();
                 Console.WriteLine();
                 Console.WriteLine();
+                Interface.LineTextColor("====================================================================================================");
+                Console.WriteLine();
 
                 Reward.StageClear();
                 Console.WriteLine();
 
-                Console.WriteLine("1. 다음");
+                Interface.ChooseTextColor("1. 다음");
+
                 Console.WriteLine();
 
                 switch (Interface.CheckValidInput(1, 1))
@@ -423,7 +462,8 @@ namespace TeamTextRPG
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Battle!! - Resurt");
-                Console.ResetColor();
+                Console.WriteLine();
+                Interface.LineTextColor("====================================================================================================");
                 Console.WriteLine();
 
                 Console.WriteLine("YOU LOSE");
@@ -441,8 +481,10 @@ namespace TeamTextRPG
                 Console.ResetColor();
                 Console.WriteLine();
                 Console.WriteLine();
+                Interface.LineTextColor("====================================================================================================");
+                Console.WriteLine();
 
-                Console.WriteLine("1. 다음");
+                Interface.ChooseTextColor("1. 다음");
                 Console.WriteLine();
 
                 switch (Interface.CheckValidInput(1, 1))
@@ -465,7 +507,9 @@ namespace TeamTextRPG
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Battle!!");
-            Console.ResetColor();
+            Console.WriteLine();
+            Interface.LineTextColor("====================================================================================================");
+            Console.WriteLine();
 
 
             if (monster.IsAlive)
@@ -500,7 +544,9 @@ namespace TeamTextRPG
                     int aliveMonsters = selectedMonster.Count(monster => monster.IsAlive == true);
                     if (aliveMonsters == 0)
                     {
-                        Console.WriteLine("1. 결과확인");
+                        Interface.LineTextColor("====================================================================================================");
+                        Console.WriteLine();
+                        Interface.ChooseTextColor("1. 결과확인");
 
                         switch (Interface.CheckValidInput(1, 1))
                         {
@@ -512,7 +558,9 @@ namespace TeamTextRPG
                     else
                     {
                         Console.WriteLine();
-                        Console.WriteLine("1. 다음");
+                        Interface.LineTextColor("====================================================================================================");
+                        Console.WriteLine();
+                        Interface.ChooseTextColor("1. 다음");
                     }
                 }
                 else
@@ -521,7 +569,7 @@ namespace TeamTextRPG
                     Console.WriteLine($"{monster.MonsterHp}");
                     Console.ResetColor();
                     Console.WriteLine();
-                    Console.WriteLine("1. 다음");
+                    Interface.ChooseTextColor("1. 다음");
                     Console.WriteLine();
                 }
             }
@@ -529,7 +577,7 @@ namespace TeamTextRPG
             {
                 Console.WriteLine($"{monster.MonsterName}은(는) 이미 죽었습니다!");
                 Console.WriteLine();
-                Console.WriteLine("1. 다음");
+                Interface.ChooseTextColor("1. 다음");
                 Console.WriteLine();
             }
         }
@@ -547,7 +595,8 @@ namespace TeamTextRPG
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("BATTLE");
-                Console.ResetColor();
+                Console.WriteLine();
+                Interface.LineTextColor("====================================================================================================");
                 Console.WriteLine();
 
                 Console.Write("Lv.");
@@ -585,7 +634,9 @@ namespace TeamTextRPG
                 {
                     playerHpInDungeon = 0;
                     Console.WriteLine();
-                    Console.WriteLine("1. 결과확인");
+                    Interface.ChooseTextColor("1. 결과확인");
+                    Console.WriteLine();
+                    Interface.LineTextColor("====================================================================================================");
                     Console.WriteLine();
 
                     switch (Interface.CheckValidInput(1, 1))
@@ -603,7 +654,7 @@ namespace TeamTextRPG
                 Console.ResetColor();
 
                 Console.WriteLine();
-                Console.WriteLine("1. 다음");
+                Interface.ChooseTextColor("1. 다음");
                 Console.WriteLine();
 
                 switch (Interface.CheckValidInput(1, 1))
