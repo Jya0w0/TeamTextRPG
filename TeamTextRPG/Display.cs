@@ -6,10 +6,8 @@ namespace TeamTextRPG
 {
     public class Display
     {
-        public Display()
-        {
-        }
-
+        //게임 캐릭터 설정
+        #region
         public static void DisplayCharacterGenaration()
         {
 
@@ -33,7 +31,7 @@ namespace TeamTextRPG
             //이름 저장
 
             Console.Clear();
-            string classType = "1. 전사  2. 마법사 3.궁수";
+            string classType = "1. 전사  2. 마법사  3. 궁수";
             Interface.OutputTxt(classType);
             Console.WriteLine();
             Console.WriteLine();
@@ -65,7 +63,10 @@ namespace TeamTextRPG
             //직업 저장
 
         }
+        #endregion
 
+        //마을
+        #region
         public static void DisplayGameIntro()
         {
             Console.Clear();
@@ -74,7 +75,7 @@ namespace TeamTextRPG
             Interface.ChooseTextColor("1. 상태보기\n2. 인벤토리\n3. 상    점\n4. 던    전\n0. 메인화면");
             Console.WriteLine();
             Console.WriteLine("원하시는 행동을 입력해주세요.");
-            Console.Write(">> ");
+            Console.WriteLine();
 
             int input2 = Interface.CheckValidInput(0, 4);
             switch (input2)
@@ -97,8 +98,10 @@ namespace TeamTextRPG
                     break;
             }
         }
+        #endregion
 
-
+        //캐릭터 정보 보기
+        #region
         public static void DisplayMyInfo()
         {
             Console.Clear();
@@ -122,7 +125,7 @@ namespace TeamTextRPG
             Interface.ChooseTextColor("0. 나가기");
             Console.WriteLine();
             Console.WriteLine("원하시는 행동을 입력해주세요.");
-            Console.Write(">> ");
+            Console.WriteLine();
 
             int input = Interface.CheckValidInput(0, 0);
             switch (input)
@@ -132,6 +135,10 @@ namespace TeamTextRPG
                     break;
             }
         }
+        #endregion
+
+        //캐릭터 인벤토리 보기
+        #region
         public static void DisplayInventory()
         {
             Console.Clear();
@@ -151,7 +158,7 @@ namespace TeamTextRPG
             Console.WriteLine();
             Console.ResetColor();
             Console.WriteLine("원하시는 행동을 입력해주세요.");
-            Console.Write(">> ");
+            Console.WriteLine();
 
             int input = Interface.CheckValidInput(0, 1);
             switch (input)
@@ -164,8 +171,10 @@ namespace TeamTextRPG
                     break;
             }
         }
+        #endregion
 
-        // 장착 관리
+        // 장착 관리 보기
+        #region
         public static void DisplayerEquip()
         {
             Console.Clear();
@@ -197,7 +206,10 @@ namespace TeamTextRPG
                     break;
             }
         }
+        #endregion
 
+        //상점 보기
+        #region
         public static void DisplayShop()
         {
             Console.Clear();
@@ -213,7 +225,7 @@ namespace TeamTextRPG
             Interface.ChooseTextColor("0. 나가기");
             Console.WriteLine();
             Console.WriteLine("원하시는 행동을 입력해주세요.");
-            Console.Write(">> ");
+            Console.WriteLine();
 
             int input = Interface.CheckValidInput(0, 0);
             switch (input)
@@ -223,7 +235,10 @@ namespace TeamTextRPG
                     break;
             }
         }
+        #endregion
 
+        //게임 로고
+        #region
         public static void DisplayGameLogo()
         {
             Console.Clear();
@@ -239,10 +254,13 @@ namespace TeamTextRPG
             Console.ReadKey();
             Console.Beep(); // 삡 소리 나게 하는 것
         }
+        #endregion
 
+        //던전 진입
+        #region
         public static void DisplayDungeon(Character player)
         {
-            int playerHpInDungeon = player.Hp;
+            int playerHpInDungeon = player.Hp + Item.itemStatSumHp();
 
             List<Monster> selectedMonster = Monster.RandomMonsters();
 
@@ -277,10 +295,8 @@ namespace TeamTextRPG
                 Console.ResetColor();
                 Console.WriteLine($" {player.Name} ( {player.Job} )");
 
-
-
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"HP : {playerHpInDungeon}");
+                Console.Write($"HP : {playerHpInDungeon}/");
                 Console.ResetColor();
                 Console.WriteLine($" {player.Hp}");
 
@@ -297,8 +313,10 @@ namespace TeamTextRPG
                 int monsterChoice = Interface.CheckValidInput(1, selectedMonster.Count);
 
                 Console.WriteLine("1. 공격");
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.WriteLine("원하는 행동을 선택하세요:");
-
+                Console.WriteLine();
 
                 switch (Interface.CheckValidInput(1, 1))
                 {
@@ -316,7 +334,7 @@ namespace TeamTextRPG
                             }
 
 
-                            Battle.PlayerAttack(player, selectedMonster[monsterChoice - 1], ref playerHpInDungeon, selectedMonster);
+                            PlayerAttack(player, selectedMonster[monsterChoice - 1], ref playerHpInDungeon, selectedMonster);
                             Console.WriteLine();
 
 
@@ -339,7 +357,7 @@ namespace TeamTextRPG
                             for (int i = 0; i < selectedMonster.Count; i++)
                             {
 
-                                Battle.EnumyAttack(player, selectedMonster[i], ref playerHpInDungeon, selectedMonster);
+                                EnumyAttack(player, selectedMonster[i], ref playerHpInDungeon, selectedMonster);
                             }
                         }
 
@@ -348,8 +366,10 @@ namespace TeamTextRPG
 
             } while (selectedMonster.Any(monster => monster.IsAlive));
         }
+        #endregion
 
-
+        //던전 결과 보기
+        #region
         public static void DisplayBattleResurt(Character player, Monster monster, List<Monster> selectedMonster, ref int playerHpInDungeon)
         {
             int aliveMonsters = selectedMonster.Count(monster => monster.IsAlive == true);
@@ -387,6 +407,7 @@ namespace TeamTextRPG
                 Console.WriteLine();
 
                 Console.WriteLine("1. 다음");
+                Console.WriteLine();
 
                 switch (Interface.CheckValidInput(1, 1))
                 {
@@ -422,6 +443,7 @@ namespace TeamTextRPG
                 Console.WriteLine();
 
                 Console.WriteLine("1. 다음");
+                Console.WriteLine();
 
                 switch (Interface.CheckValidInput(1, 1))
                 {
@@ -432,5 +454,166 @@ namespace TeamTextRPG
                 }
             }
         }
+        #endregion
+
+        //플레이어 공격 결과 보기
+        #region
+        public static void PlayerAttack(Character player, Monster monster, ref int playerHpInDungeon, List<Monster> selectedMonster)
+        {
+
+            int playerDamage = Battle.PlayerAttackRange(player);
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Battle!!");
+            Console.ResetColor();
+
+
+            if (monster.IsAlive)
+            {
+                Console.Write($"{player.Name}이(가) Lv{monster.MonsterLv} {monster.MonsterName}에게 공격했습니다!      ");
+                Console.Write("[데미지 : ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"{playerDamage}");
+                Console.ResetColor();
+                Console.WriteLine("]");
+                Console.WriteLine();
+
+                Console.Write("Lv.");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"{monster.MonsterLv}");
+                Console.ResetColor();
+                Console.WriteLine($" {monster.MonsterName}");
+
+                Console.Write("HP ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"{monster.MonsterHp}");
+                Console.ResetColor();
+                Console.Write(" -> ");
+
+                monster.MonsterHp -= playerDamage;
+
+                if (monster.MonsterHp < 0)
+                {
+                    monster.IsAlive = false;
+                    monster.MonsterHp = 0;
+                    Console.WriteLine("Dead");
+                    int aliveMonsters = selectedMonster.Count(monster => monster.IsAlive == true);
+                    if (aliveMonsters == 0)
+                    {
+                        Console.WriteLine("1. 결과확인");
+
+                        switch (Interface.CheckValidInput(1, 1))
+                        {
+                            case 1:
+                                Display.DisplayBattleResurt(player, monster, selectedMonster, ref playerHpInDungeon);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("1. 다음");
+                    }
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"{monster.MonsterHp}");
+                    Console.ResetColor();
+                    Console.WriteLine();
+                    Console.WriteLine("1. 다음");
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                Console.WriteLine($"{monster.MonsterName}은(는) 이미 죽었습니다!");
+                Console.WriteLine();
+                Console.WriteLine("1. 다음");
+                Console.WriteLine();
+            }
+        }
+        #endregion
+
+        //적 공격 결과 보기
+        #region
+        public static void EnumyAttack(Character player, Monster monster, ref int playerHpInDungeon, List<Monster> selectedMonster)
+        {
+
+            int monsterDamage = Battle.EnumyAttackRange(monster);
+
+            if (monster.IsAlive == true)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("BATTLE");
+                Console.ResetColor();
+                Console.WriteLine();
+
+                Console.Write("Lv.");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"{monster.MonsterLv}");
+                Console.ResetColor();
+                Console.Write($" {monster.MonsterName}이(가) Lv.");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"{player.Level}");
+                Console.ResetColor();
+                Console.Write($" {player.Name}에게 공격했습니다!     ");
+
+                Console.Write("[데미지 : ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"{monsterDamage}");
+                Console.ResetColor();
+                Console.Write("]");
+                Console.WriteLine();
+                Console.WriteLine();
+
+                Console.Write("Lv.");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"{player.Level} ");
+                Console.ResetColor();
+                Console.WriteLine($"{player.Name}");
+
+                Console.Write($"HP ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"{playerHpInDungeon}");
+                Console.ResetColor();
+                Console.Write(" -> ");
+
+                playerHpInDungeon -= monsterDamage;
+                if (playerHpInDungeon <= 0)
+                {
+                    playerHpInDungeon = 0;
+                    Console.WriteLine();
+                    Console.WriteLine("1. 결과확인");
+                    Console.WriteLine();
+
+                    switch (Interface.CheckValidInput(1, 1))
+                    {
+                        case 1:
+                            Display.DisplayBattleResurt(player, monster, selectedMonster, ref playerHpInDungeon);
+                            break;
+
+
+                    }
+                }
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"{playerHpInDungeon}");
+                Console.ResetColor();
+
+                Console.WriteLine();
+                Console.WriteLine("1. 다음");
+                Console.WriteLine();
+
+                switch (Interface.CheckValidInput(1, 1))
+                {
+                    case 1:
+                        Console.Clear();
+                        break;
+                }
+            }
+        }
+        #endregion
     }
 }

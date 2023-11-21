@@ -7,15 +7,13 @@ namespace TeamTextRPG
 {
 	public class Interface
 	{
-		public Interface()
-		{
-
-		}
-
+        //올바른 입력 값 받기
+        #region
         public static int CheckValidInput(int min, int max)
         {
             while (true)
             {
+                Console.Write(">> ");
                 string input = Console.ReadLine();
 
                 bool parseSuccess = int.TryParse(input, out var ret);
@@ -29,7 +27,10 @@ namespace TeamTextRPG
                 Console.ResetColor();
             }
         }
+        #endregion
 
+        //타이핑 효과
+        #region
         public static void OutputTxt(string txt) // string = Char(문자) 배열
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -49,24 +50,30 @@ namespace TeamTextRPG
                 txtCount++;
             }
         }
+        #endregion
 
         // 설명글씨색
+        #region
         public static void LineTextColor(string line)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(line);
             Console.ResetColor();
         }
+        #endregion
 
         // 선택지글씨색
+        #region
         public static void ChooseTextColor(string line)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(line);
             Console.ResetColor();
         }
+        #endregion
 
         // 스텟글씨색
+        #region
         public static void StatTextColor(string s1, string s2, string s3 = "")
         {
             Console.Write(s1);
@@ -75,15 +82,12 @@ namespace TeamTextRPG
             Console.ResetColor();
             Console.WriteLine(s3);
         }
+        #endregion
 
-
-            // 0 = 무기 1 = 대가리 2 = 갑옷 3 = 신발
-            // 아이템 정보 세팅
-
-        
-
-        //item
-
+        // 0 = 무기 1 = 대가리 2 = 갑옷 3 = 신발
+        // 아이템 정보 세팅
+        // 글자 정렬 
+        #region
         public static int GetPrintableLength(string str)
         {
             int length = 0;
@@ -108,6 +112,7 @@ namespace TeamTextRPG
             int padding = totalLength - currentLength; // 원하는 크기과 실제 텍스트의 길이를 계산한다
             return str.PadRight(str.Length + padding); // 필요한 길이만큼의 공간을 더해준다
         }
+        #endregion
     }
 }
 
