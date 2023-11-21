@@ -15,7 +15,7 @@ namespace TeamTextRPG
             Console.ForegroundColor = ConsoleColor.Green;
         }
 
-        public void LogoFontColor()
+        public void LogoColor()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
