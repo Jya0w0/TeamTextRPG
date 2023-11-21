@@ -16,10 +16,10 @@ namespace TeamTextRPG
         public string Name { get; }
         public string Job { get; }
         public int Level { get; }
-        public int Atk { get; }
+        public int Atk { get; set; }
         public int Def { get; }
-        public int Hp { get; }
-        public int Gold { get; }
+        public int Hp { get; set; }
+        public int Gold { get; set; }
         public bool IsAlive { get; } = true;
 
         public Character(string name, string job, int level, int atk, int def, int hp, int gold, bool isAlive)
