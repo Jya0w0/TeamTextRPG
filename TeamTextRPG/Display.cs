@@ -242,6 +242,7 @@ namespace TeamTextRPG
         public static void DisplayGameLogo()
         {
             Console.Clear();
+            Console.CursorVisible = false;
             // 아스키 코드로 이루어진 타이틀 화면을 위한 인코딩 설정
             Console.OutputEncoding = Encoding.UTF8;
             Console.Title = "= Sparta Dungeon =";
