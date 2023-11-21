@@ -406,6 +406,9 @@ namespace TeamTextRPG
                 Console.WriteLine();
                 Console.WriteLine();
 
+                Reward.StageClear();
+
+
                 Console.WriteLine("1. 다음");
                 Console.WriteLine();
 

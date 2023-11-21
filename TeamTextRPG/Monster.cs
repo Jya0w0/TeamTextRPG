@@ -11,17 +11,16 @@ namespace TeamTextRPG
         public bool IsAlive { get; set; } = true;
 
 
-
         public static List<Monster> RandomMonsters()
         {
 
 
             List<Monster> monsters = new List<Monster>
             {
-                new Monster("변이 쥐", 100, 100, 1, true),
-                new Monster("다친 경비 견", 100, 100, 1, true),
-                new Monster("실험체 태아", 1, 20, 1, true),
-                new Monster("슬라임", 1, 10, 1, true)
+                new Monster("변이 쥐", 1, 1, 1, true),
+                new Monster("다친 경비 견", 1, 1, 1, true),
+                new Monster("실험체 태아", 1, 2, 1, true),
+                new Monster("슬라임", 1, 1, 1, true)
             };
 
             List<Monster> selectedMonsters = new List<Monster>();//load list
