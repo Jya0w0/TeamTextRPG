@@ -31,7 +31,8 @@ namespace TeamTextRPG
 
             for (int i = 0; i < maxMonsters; i++)
             {
-                selectedMonsters.Add(monsters[random.Next(monsters.Count)]); //
+                Monster selectedMonster = monsters[random.Next(monsters.Count)];
+                selectedMonsters.Add(new Monster(selectedMonster.MonsterName, selectedMonster.MonsterHp, selectedMonster.MonsterAtk, selectedMonster.MonsterLv, selectedMonster.IsAlive));
             }
 
             return selectedMonsters;
