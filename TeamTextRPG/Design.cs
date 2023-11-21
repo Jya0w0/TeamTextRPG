@@ -59,7 +59,7 @@ namespace TeamTextRPG
                     Thread.Sleep(1000); // 1초 대기
                     if (Console.KeyAvailable)
                     {
-                        break;
+                        return;
                     }
                 }
             }
@@ -104,6 +104,7 @@ namespace TeamTextRPG
             Console.WriteLine("                    ==============================================                    ");
             Console.WriteLine("                    ===== 계속하려면 아무 키나 입력하십시오. =====                    ");
             Console.WriteLine("                    ==============================================                    ");
+            Console.ResetColor();
         }
     }
 }
