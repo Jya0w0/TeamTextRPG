@@ -247,11 +247,6 @@ namespace TeamTextRPG
             Console.Title = "= Sparta Dungeon =";
 
             Design.LogoColor();
-            //Console.ForegroundColor = ConsoleColor.Cyan;
-            //Console.WriteLine("                                                                               \r\n ####                  #          ######                                       \r\n##  #                 ##           ##  ##                                      \r\n###   ###   ##   ## # ###  ##      ##  ## ## ## # ##    ####  ###  ###  # ##   \r\n ###  ## # # ##  #### ##  # ##     ##  ## ## #  ## ##  ## #  ## # ## ## ## ##  \r\n  ### ## #  ###  ##   ##   ###     ##  ## ## #  ## ##  ## #  #### ## ## ## ##  \r\n#  ## ## # #  #  ##   ##  #  #     ##  ## ## #  ## ##   ###  ##   ## ## ## ##  \r\n####  ###  ##### ##    ## #####   ######   ###  ## ### ##     ###  ###  ## ### \r\n      ##                                               ####                    \r\n      ###                                              #  #                    \r\n                                                       ####                    ");
-            Console.WriteLine();
-            Console.WriteLine("          ===== 계속하려면 아무 키나 입력하십시오. =====          ");
-            Console.ResetColor();
             Console.ReadKey();
             Console.Beep(); // 삡 소리 나게 하는 것
         }
