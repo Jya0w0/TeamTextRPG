@@ -32,7 +32,7 @@ namespace TeamTextRPG
             for (int i = 0; i < maxMonsters; i++)
             {
                 Monster selectedMonster = monsters[random.Next(monsters.Count)];
-                selectedMonsters.Add(new Monster(selectedMonster.MonsterName, selectedMonster.MonsterHp, selectedMonster.MonsterAtk, selectedMonster.MonsterLv, selectedMonster.IsAlive));
+                selectedMonsters.Add(new Monster(selectedMonster));
             }
 
             return selectedMonsters;
@@ -46,6 +46,14 @@ namespace TeamTextRPG
             MonsterLv = monsterLv;
             IsAlive = isAlive;
         }
+        public Monster(Monster monster)
+            {
+             MonsterName = monster.MonsterName;
+            MonsterHp = monster.MonsterHp;
+            MonsterAtk = monster.MonsterAtk;
+            MonsterLv = monster.MonsterLv;
+            IsAlive = monster.IsAlive;
+            }
     }
 }
 
