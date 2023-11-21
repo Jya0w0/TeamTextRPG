@@ -44,11 +44,7 @@ namespace TeamTextRPG
 
         private static int margin = 10; // 텍스트가 출력될 위치의 왼쪽 여백
         private static int logoLength = 10; // 텍스트 길이
-<<<<<<< HEAD
-        public static string LogoColor(string text)
-=======
         public static void LogoColor()
->>>>>>> Jihu
         {
             // 배열에 원하는 색상을 순서대로 나열
             ConsoleColor[] colors = { ConsoleColor.Red, ConsoleColor.Yellow, ConsoleColor.Green, ConsoleColor.Blue, ConsoleColor.Magenta };
@@ -59,11 +55,7 @@ namespace TeamTextRPG
                 foreach (var color in colors)
                 {
                     DrawTitle(color);
-<<<<<<< HEAD
-                    Console.WriteLine(text);
-=======
                     //Console.WriteLine(text);
->>>>>>> Jihu
                     Thread.Sleep(1000); // 1초 대기
                     if (Console.KeyAvailable)
                     {
@@ -106,19 +98,12 @@ namespace TeamTextRPG
             Console.WriteLine("      ###                                              #  #                    \r");
             Console.SetCursorPosition(margin, 12);
             Console.WriteLine("                                                       ####                    ");
-<<<<<<< HEAD
-            // 메시지 출력.
-            Console.ResetColor();
-            Console.SetCursorPosition(0, 6);
-            Console.WriteLine("== 아무 키나 입력 ==");
-=======
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine("                    ==============================================                    ");
             Console.WriteLine("                    ===== 계속하려면 아무 키나 입력하십시오. =====                    ");
             Console.WriteLine("                    ==============================================                    ");
->>>>>>> Jihu
         }
     }
 }
