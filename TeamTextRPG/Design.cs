@@ -59,7 +59,7 @@ namespace TeamTextRPG
                     Thread.Sleep(1000); // 1초 대기
                     if (Console.KeyAvailable)
                     {
-                        break;
+                        return;
                     }
                 }
             }
