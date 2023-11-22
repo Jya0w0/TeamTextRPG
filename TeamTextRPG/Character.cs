@@ -19,10 +19,12 @@ namespace TeamTextRPG
         public int Atk { get; set; }
         public int Def { get; }
         public int Hp { get; set; }
+        public int DungeonHp { get; set; }
         public int Gold { get; set; }
+        public int Floor {  get; set; }
         public bool IsAlive { get; } = true;
 
-        public Character(string name, string job, int level, int atk, int def, int hp, int gold, bool isAlive)
+        public Character(string name, string job, int level, int atk, int def, int hp,int dungeonHp, int gold, int floor, bool isAlive)
         {
             Name = name;
             Job = job;
@@ -30,7 +32,9 @@ namespace TeamTextRPG
             Atk = atk;
             Def = def;
             Hp = hp;
+            DungeonHp = dungeonHp;
             Gold = gold;
+            Floor = floor;
             IsAlive = isAlive;
         }
 
