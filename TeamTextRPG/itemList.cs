@@ -33,7 +33,6 @@ public class items
         ItemAtk = itematk;
         ItemDef = itemdef;
         ItemHp = itemhp;
-
     }
 }
 public class program

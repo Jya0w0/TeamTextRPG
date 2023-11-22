@@ -10,19 +10,19 @@ namespace TeamTextRPG
         public int MonsterLv { get; set; }
         public bool IsAlive { get; set; } = true;
 
-
+        public static List<Monster> monsters = new List<Monster>
+            {
+                new Monster("감염된 쥐", 20, 5, 1, true),
+                new Monster("다친 경비 견", 10, 10, 1, true),
+                new Monster("태아 실험체", 6, 15, 1, true),
+                new Monster("방사능 슬라임", 15, 7, 1, true),
+                new Monster("감염된 과학자", 30, 15, 2, true),
+                new Monster("커다란 가방을 맨 감염자", 40, 10, 2, true),
+                new Monster("감염된 경비 견", 20, 20, 2, true)
+            };
 
         public static List<Monster> RandomMonsters()
         {
-
-
-            List<Monster> monsters = new List<Monster>
-            {
-                new Monster("변이 쥐", 100, 100, 1, true),
-                new Monster("다친 경비 견", 100, 100, 1, true),
-                new Monster("실험체 태아", 1, 20, 1, true),
-                new Monster("슬라임", 1, 10, 1, true)
-            };
 
             List<Monster> selectedMonsters = new List<Monster>();//load list
             Random random = new Random();//random
@@ -46,14 +46,15 @@ namespace TeamTextRPG
             MonsterLv = monsterLv;
             IsAlive = isAlive;
         }
+
         public Monster(Monster monster)
-            {
-             MonsterName = monster.MonsterName;
+        {
+            MonsterName = monster.MonsterName;
             MonsterHp = monster.MonsterHp;
             MonsterAtk = monster.MonsterAtk;
             MonsterLv = monster.MonsterLv;
             IsAlive = monster.IsAlive;
-            }
+        }
     }
 }
 
