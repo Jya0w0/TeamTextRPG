@@ -588,7 +588,7 @@ namespace TeamTextRPG
         public static void EnumyAttack(Character player, Monster monster, ref int playerHpInDungeon, List<Monster> selectedMonster)
         {
 
-            int monsterDamage = Battle.EnumyAttackRange(monster);
+            int monsterDamage = Battle.EnumyAttackRange(monster, player);
 
             if (monster.IsAlive == true)
             {
