@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Numerics;
+using System.Reflection;
 using System.Text;
 
 namespace TeamTextRPG
 {
     public class Display
     {
+<<<<<<< Updated upstream
+=======
+
+        static public string inputaction = "원하시는 행동을 입력해주세요.\n\n";
+>>>>>>> Stashed changes
         //게임 캐릭터 설정
         #region
         public static void DisplayCharacterGenaration()
@@ -59,7 +65,7 @@ namespace TeamTextRPG
 
             }
 
-            Character.player = new Character(characterName, characterClass, 1, 10, 5, 100, 1500, true);
+            Character.player = new Character(characterName, characterClass, 1, 10, 5, 100, 1500, 1, false, false, false, false, true);
             //직업 저장
 
         }
@@ -114,9 +120,9 @@ namespace TeamTextRPG
             Console.WriteLine();
             Console.WriteLine("{0} ( {1} )", Character.player.Name, Character.player.Job);
 
-            int itemStatAtk = Item.itemStatSumAtk();
-            int itemStatDef = Item.itemStatSumDef();
-            int itemStatHp = Item.itemStatSumHp();
+            int itemStatAtk = Character.itemStatSumAtk();
+            int itemStatDef = Character.itemStatSumDef();
+            int itemStatHp = Character.itemStatSumHp();
             Interface.StatTextColor("공격력 : ", (Character.player.Atk + itemStatAtk).ToString(), itemStatAtk > 0 ? string.Format(" (+{0})", itemStatAtk) : "");
             Interface.StatTextColor("방어력 : ", (Character.player.Def + itemStatDef).ToString(), itemStatDef > 0 ? string.Format(" (+{0})", itemStatDef) : "");
             Interface.StatTextColor("체 력 : ", Character.player.Hp.ToString(), itemStatHp > 0 ? string.Format(" (+{0})", itemStatHp) : "");
@@ -141,6 +147,7 @@ namespace TeamTextRPG
         #region
         public static void DisplayInventory()
         {
+
             Console.Clear();
             Console.Title = "= inventory =";
 
@@ -148,11 +155,12 @@ namespace TeamTextRPG
             Interface.LineTextColor("보유 중인 아이템을 관리할 수 있습니다.");
             Console.WriteLine();
             Interface.ChooseTextColor("[아이템 목록]");
+            Console.WriteLine();
 
-            for (int i = 0; i < Item.ItemCount; i++)
-            {
-                Item.items[i].ItemStat();
-            }
+            //아이템 리스트에서 have 의 bool 값을 확인하고 true인 값만 inventory에 추가한다
+            Character.player.AddItemsFromItemList(Item.ItemList());
+            Character.player.ShowInventory();
+
             Console.WriteLine("");
             Interface.ChooseTextColor("1. 장착관리\n0. 나가기");
             Console.WriteLine();
@@ -177,6 +185,7 @@ namespace TeamTextRPG
         #region
         public static void DisplayerEquip()
         {
+
             Console.Clear();
             Console.Title = "= Item Equip =";
 
@@ -184,24 +193,27 @@ namespace TeamTextRPG
             Interface.LineTextColor("보유 중인 아이템을 관리할 수 있습니다.");
             Console.WriteLine();
             Interface.ChooseTextColor("[아이템 목록]");
-            for (int i = 0; i < Item.ItemCount; i++)
+
+            for (int i = 0; i < Character.player.Inventory.Count; i++)
             {
-                Item.items[i].ItemStat(true, i + 1);
+                Character.player.ItemStat(false, i + 1);
             }
+
             Console.WriteLine();
             Interface.ChooseTextColor("0. 나가기");
             Console.WriteLine();
             Console.WriteLine("원하시는 행동을 입력해주세요.");
             Console.Write(">> ");
 
-            int input = Interface.CheckValidInput(0, Item.ItemCount);
+            int input = Interface.CheckValidInput(0, Character.player.Inventory.Count);
+
             switch (input)
             {
                 case 0:
                     DisplayInventory();
                     break;
                 default:
-                    Item.ToggleEquipStatus(input - 1); // 유저가 입력하는건 1, 2, 3...  실제 배열에는 0, 1, 2...
+                    Character.ToggleEquipStatus(input - 1); // 유저가 입력하는건 1, 2, 3...  실제 배열에는 0, 1, 2...
                     DisplayerEquip();
                     break;
             }
@@ -260,7 +272,13 @@ namespace TeamTextRPG
         #region
         public static void DisplayDungeon(Character player)
         {
+<<<<<<< Updated upstream
             int playerHpInDungeon = player.Hp + Item.itemStatSumHp();
+=======
+            
+            Console.Title = "= Stage =";
+            int playerHpInDungeon = player.Hp + Character.itemStatSumHp();
+>>>>>>> Stashed changes
 
             List<Monster> selectedMonster = Monster.RandomMonsters();
 
@@ -269,6 +287,7 @@ namespace TeamTextRPG
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Battle!!");
+                Console.WriteLine($"현재 층: 지하 {player.Floor}층");
                 Console.ResetColor();
 
                 Console.WriteLine();
@@ -295,8 +314,9 @@ namespace TeamTextRPG
                 Console.ResetColor();
                 Console.WriteLine($" {player.Name} ( {player.Job} )");
 
+                Console.Write("HP: ");
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"HP : {playerHpInDungeon}/");
+                Console.Write($"{playerHpInDungeon}/");
                 Console.ResetColor();
                 Console.WriteLine($" {player.Hp}");
 
@@ -357,7 +377,7 @@ namespace TeamTextRPG
                             for (int i = 0; i < selectedMonster.Count; i++)
                             {
 
-                                EnumyAttack(player, selectedMonster[i], ref playerHpInDungeon, selectedMonster);
+                                EnemyAttack(player, selectedMonster[i], ref playerHpInDungeon, selectedMonster);
                             }
                         }
 
@@ -370,7 +390,7 @@ namespace TeamTextRPG
 
         //던전 결과 보기
         #region
-        public static void DisplayBattleResurt(Character player, Monster monster, List<Monster> selectedMonster, ref int playerHpInDungeon)
+        public static void DisplayBattleresult(Character player, Monster monster, List<Monster> selectedMonster, ref int playerHpInDungeon)
         {
             int aliveMonsters = selectedMonster.Count(monster => monster.IsAlive == true);
             int playerLastHp = playerHpInDungeon;
@@ -379,8 +399,14 @@ namespace TeamTextRPG
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Yellow;
+<<<<<<< Updated upstream
                 Console.WriteLine("Battle!! - Resurt");
                 Console.ResetColor();
+=======
+                Console.WriteLine("Battle!! - result");
+                Console.WriteLine();
+                Interface.LineTextColor("====================================================================================================");
+>>>>>>> Stashed changes
                 Console.WriteLine();
 
                 Console.WriteLine("VICTORY");
@@ -405,6 +431,25 @@ namespace TeamTextRPG
                 Console.ResetColor();
                 Console.WriteLine();
                 Console.WriteLine();
+<<<<<<< Updated upstream
+=======
+                Interface.LineTextColor("====================================================================================================");
+                Console.WriteLine();
+
+                Interface.ChooseTextColor("1. 보상보기");
+
+                switch (Interface.CheckValidInput(1, 1))
+                {
+                    case 1:
+                        Console.Clear();
+                        Reward.StageClear();
+                        break;
+                }
+
+                Console.WriteLine();
+
+                Interface.ChooseTextColor("1. 아랫층으로");
+>>>>>>> Stashed changes
 
                 Console.WriteLine("1. 다음");
                 Console.WriteLine();
@@ -413,7 +458,8 @@ namespace TeamTextRPG
                 {
                     case 1:
                         Console.Clear();
-                        DisplayGameIntro();
+                        player.Floor++;
+                        DisplayDungeon(Character.player);
                         break;
                 }
 
@@ -422,8 +468,14 @@ namespace TeamTextRPG
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Yellow;
+<<<<<<< Updated upstream
                 Console.WriteLine("Battle!! - Resurt");
                 Console.ResetColor();
+=======
+                Console.WriteLine("Battle!! - result");
+                Console.WriteLine();
+                Interface.LineTextColor("====================================================================================================");
+>>>>>>> Stashed changes
                 Console.WriteLine();
 
                 Console.WriteLine("YOU LOSE");
@@ -505,7 +557,7 @@ namespace TeamTextRPG
                         switch (Interface.CheckValidInput(1, 1))
                         {
                             case 1:
-                                Display.DisplayBattleResurt(player, monster, selectedMonster, ref playerHpInDungeon);
+                                Display.DisplayBattleresult(player, monster, selectedMonster, ref playerHpInDungeon);
                                 break;
                         }
                     }
@@ -537,10 +589,10 @@ namespace TeamTextRPG
 
         //적 공격 결과 보기
         #region
-        public static void EnumyAttack(Character player, Monster monster, ref int playerHpInDungeon, List<Monster> selectedMonster)
+        public static void EnemyAttack(Character player, Monster monster, ref int playerHpInDungeon, List<Monster> selectedMonster)
         {
 
-            int monsterDamage = Battle.EnumyAttackRange(monster);
+            int monsterDamage = Battle.EnemyAttackRange(monster, player);
 
             if (monster.IsAlive == true)
             {
@@ -579,11 +631,19 @@ namespace TeamTextRPG
                 Console.Write($"{playerHpInDungeon}");
                 Console.ResetColor();
                 Console.Write(" -> ");
+                if(playerHpInDungeon < monsterDamage)
+                {
+                    monsterDamage = playerHpInDungeon;
+                    playerHpInDungeon -= monsterDamage;
+                }
+                else
+                {
+                    playerHpInDungeon -= monsterDamage;
+                }
 
-                playerHpInDungeon -= monsterDamage;
                 if (playerHpInDungeon <= 0)
                 {
-                    playerHpInDungeon = 0;
+                    
                     Console.WriteLine();
                     Console.WriteLine("1. 결과확인");
                     Console.WriteLine();
@@ -591,7 +651,7 @@ namespace TeamTextRPG
                     switch (Interface.CheckValidInput(1, 1))
                     {
                         case 1:
-                            Display.DisplayBattleResurt(player, monster, selectedMonster, ref playerHpInDungeon);
+                            Display.DisplayBattleresult(player, monster, selectedMonster, ref playerHpInDungeon);
                             break;
 
 
