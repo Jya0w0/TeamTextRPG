@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using TeamTextRPG;
 
 public class Reward
@@ -11,17 +12,18 @@ public class Reward
         string Name { get; }
         string DiscriptionName { get; }
         void Use(Character player);
+        
     }
 
     public class StrengthPotion : IReward
     {
         private static Random random = new Random();
         public string Name => "1";
-        public string DiscriptionName => "랜덤경험치";
+        public string DiscriptionName => "랜덤공격력";
         public void Use(Character player)
         {
             int rewardAtk = random.Next(1, 30);
-            Console.WriteLine($"공격력 포션을 사용합니다. 공격력이 {rewardAtk}증가합니다.");
+            Console.WriteLine($"공격력 포션을 사용했다. 공격력이 {rewardAtk}증가했다.");
             player.Atk += rewardAtk;
         }
     }
@@ -34,7 +36,7 @@ public class Reward
         public void Use(Character player)
         {
             int rewardGold = random.Next(50, 1000);
-            Console.WriteLine($"골드 주머니를 사용합니다. {rewardGold}골드를 획득하셨습니다. ");
+            Console.WriteLine($"골드 주머니를 사용했다. {rewardGold}골드를 획득했다. ");
             player.Gold += rewardGold;
         }
     }
@@ -42,23 +44,42 @@ public class Reward
     public class LuckyBox : IReward
     {
         private static Random random = new Random();
+
         public string Name => "3";
         public string DiscriptionName => "행운상자";
         public void Use(Character player)
         {
-            int rewardNum = random.Next(1, 2);
-            if (rewardNum > 1)
+            
+            
+            int rewardNum = random.Next(1, 4);
+            if (rewardNum == 1)
             {
                 int rewardGold = random.Next(5000, 10000);
                 player.Gold += rewardGold;
-                Console.WriteLine($"행운상자를 사용합니다. {rewardGold}골드를 획득하셨습니다. ");
+                Console.WriteLine($"행운상자를 사용했다. {rewardGold}골드를 획득했다. ");
             }
-            else
+            else if (rewardNum == 2)
             {
-                int rewardHp = random.Next(30, 50);
-                player.Hp -= rewardHp;
-                Console.WriteLine($"행운상자를 사용합니다. 기본 Hp{rewardHp}를 잃었습니다. ");
 
+                int rewardHpMinus = random.Next(30, 50);
+                if (player.DungeonHp < rewardHpMinus)
+                {
+                    rewardHpMinus = player.DungeonHp - 1;
+                    
+                }   
+                player.DungeonHp -= rewardHpMinus;
+                Console.WriteLine($"행운상자를 사용했다. 기본 Hp{rewardHpMinus}를 잃었다. ");
+
+            }
+            else 
+            {
+                int rewardHpPlus = random.Next(30, 50);
+                if(player.Hp - player.DungeonHp < rewardHpPlus)
+                {
+                    rewardHpPlus = player.Hp - player.DungeonHp;
+                }
+                player.DungeonHp += rewardHpPlus;
+                Console.WriteLine($"행운상자를 사용했다. 기본 Hp{rewardHpPlus}를 회복했다. ");
             }
         }
     }
@@ -73,7 +94,10 @@ public class Reward
             };
         Console.Clear();
         Console.WriteLine();
-        Console.WriteLine("아래의 보상 아이템 중 하나를 선택하여 사용할 수 있습니다: ");
+        Console.WriteLine("아래의 보상 아이템 중 하나를 선택하자: ");
+
+        Interface.LineTextColor("====================================================================================================");
+        Console.WriteLine();
 
         foreach (var reward in rewards)
         {
@@ -81,10 +105,13 @@ public class Reward
             Console.Write(" ");
             Console.WriteLine(reward.DiscriptionName);
         }
-
+        Console.WriteLine();
+        Interface.LineTextColor("====================================================================================================");
+        Console.WriteLine() ;
         while (true)
         {
-            Console.WriteLine("사용할 아이템 이름을 입력하세요.");
+            Console.Write("사용할 아이템 숫자 입력 >> ");
+            
             string input = Console.ReadLine();
 
 
@@ -98,9 +125,14 @@ public class Reward
 
             else
             {
-                Console.WriteLine("잘못입력하셨습니다.");
+                Console.WriteLine("잘못입력하셨습니다. 올바른 값을 입력해주세요.");
                 Console.WriteLine();
             }
         }
+
+        Interface.LineTextColor("다음 스테이지로 이동");
+
+        
+        
     }
 }
