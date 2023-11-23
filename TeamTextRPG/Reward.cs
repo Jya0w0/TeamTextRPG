@@ -61,7 +61,7 @@ public class Reward
             else if (rewardNum == 2)
             {
 
-                int rewardHpMinus = random.Next(100, 150);
+                int rewardHpMinus = random.Next(30, 50);
                 if (player.DungeonHp < rewardHpMinus)
                 {
                     rewardHpMinus = player.DungeonHp - 1;

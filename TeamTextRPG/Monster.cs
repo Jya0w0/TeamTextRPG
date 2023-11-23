@@ -29,7 +29,7 @@ namespace TeamTextRPG
 
             int maxMonsters = random.Next(1, monsters.Count); //반복문에 사용될 몬스터 생성 최댓값 랜덤 생성
 
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < maxMonsters; i++)
             {
                 Monster selectedMonster = monsters[random.Next(monsters.Count)];
                 selectedMonsters.Add(new Monster(selectedMonster));

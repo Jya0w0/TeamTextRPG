@@ -14,6 +14,7 @@ namespace TeamTextRPG
         static void Main()
         {
             Display.DisplayGameLogo();
+            Item.GameDataSattingItem();
             Display.DisplayCharacterGenaration();
             Display.DisplayGameIntro();
         }

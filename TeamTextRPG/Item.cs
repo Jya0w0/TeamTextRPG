@@ -38,7 +38,7 @@ namespace TeamTextRPG
         public Item()
 		{
 		}
-        static void GameDataSattingItem()
+        public static void GameDataSattingItem()
         {
             items = new Item[10];
             AddItem(new Item("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", Item.ItemType.Body, 0, 5, 0));

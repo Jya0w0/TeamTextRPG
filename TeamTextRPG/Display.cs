@@ -311,13 +311,10 @@ namespace TeamTextRPG
 
                 foreach (var monster in selectedMonster)
                 {
-                    if (monster.IsAlive == false)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                    }
+                    Console.ForegroundColor = monster.IsAlive ? ConsoleColor.Green : ConsoleColor.Gray;
                     Console.Write($"Lv{monster.MonsterLv} {monster.MonsterName} ");
                     Console.Write(monster.MonsterHp <= 0 ? "Dead" : "Hp: ");
-                    Console.ForegroundColor = monster.IsAlive ? ConsoleColor.Green : ConsoleColor.Gray;
+                   
                     Console.WriteLine(monster.MonsterHp <= 0 ? "" : $"{monster.MonsterHp}");
 
                     Console.ResetColor();
@@ -502,7 +499,7 @@ namespace TeamTextRPG
                 {
                     case 1:
                         Console.Clear();
-                        DisplayGameIntro();
+                        EndGame();
                         break;
                 }
             }
@@ -677,5 +674,10 @@ namespace TeamTextRPG
             }
         }
         #endregion
+
+        public static void EndGame()
+        {
+            System.Environment.Exit(0);
+        }
     }
 }
